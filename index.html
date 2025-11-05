@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru" class="theme-default">
+<head>
+  <meta charset="UTF-8" />
+  <title>Погода сейчас</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="title">Погода сейчас</h1>
+    <p class="subtitle">Введите координаты или выберите город</p>
+  </header>
+
+  <main class="content">
+    <section class="controls card fade-in">
+      <form id="coordForm" class="coord-form">
+        <div class="field">
+          <label for="lat">Широта</label>
+          <input type="text" id="lat" name="lat" placeholder="например 53.9" required />
+        </div>
+        <div class="field">
+          <label for="lon">Долгота</label>
+          <input type="text" id="lon" name="lon" placeholder="например 27.5667" required />
+        </div>
+        <button type="submit" class="btn primary">Показать погоду</button>
+      </form>
+
+      <div class="city-grid" id="cityGrid"></div>
+      <div id="errorBox" class="alert slide-down" style="display:none"></div>
+    </section>
+
+    <section id="weatherCard" class="weather card lift" style="display:none">
+      <div class="weather-header">
+        <h2 class="city-name" id="cityName">—</h2>
+        <div class="temp" id="temp">—°C</div>
+      </div>
+      <div class="weather-body">
+        <div class="icon-wrap pop-in">
+          <img id="weatherIcon" class="weather-icon" alt="Иконка погоды" />
+        </div>
+        <div class="desc" id="weatherDesc">—</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="sky">
+    <div class="sun"></div>
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="rain">
+      <span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span>
+      <span class="drop d4"></span><span class="drop d5"></span><span class="drop d6"></span>
+      <span class="drop d7"></span><span class="drop d8"></span><span class="drop d9"></span>
+      <span class="drop d10"></span>
+    </div>
+    <div class="snow">
+      <span class="flake f1"></span><span class="flake f2"></span><span class="flake f3"></span><span class="flake f4"></span>
+      <span class="flake f5"></span><span class="flake f6"></span><span class="flake f7"></span><span class="flake f8"></span>
+    </div>
+    <div class="lightning">
+      <span class="bolt b1"></span><span class="bolt b2"></span>
+    </div>
+    <div class="night">
+      <div class="moon"></div>
+      <div class="star s1"></div><div class="star s2"></div><div class="star s3"></div>
+      <div class="star s4"></div><div class="star s5"></div>
+    </div>
+    <div class="fog-layer"></div>
+    <div class="fog-band fb1"></div>
+    <div class="fog-band fb2"></div>
+    <div class="fog-band fb3"></div>
+  </div>
+
+  <footer class="footer">
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
