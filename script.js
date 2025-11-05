@@ -1,4 +1,3 @@
-// ======== Конфигурация ========
 const API_KEY = "3267f0cb6bcc4c888f21531c96fefa6b";
 const API_URL = "https://api.weatherbit.io/v2.0/current";
 
@@ -15,7 +14,6 @@ const CITIES = [
   { name: "Пекин", lat: 39.9042, lon: 116.4074 }
 ];
 
-// ======== Утилиты ========
 const qs = (id) => document.getElementById(id);
 const setTheme = (theme) => {
   document.documentElement.className = `theme-${theme}`;
@@ -39,7 +37,6 @@ function setLoading(isLoading) {
   btn.textContent = isLoading ? "Загружаем..." : "Показать погоду";
 }
 
-// ======== Погода -> UI ========
 function showWeather(data) {
   qs("weatherCard").style.display = "block";
   qs("cityName").textContent = data.city;
@@ -59,13 +56,11 @@ function showWeather(data) {
     img.style.display = "none";
   }
 
-  // Ночной режим: если иконка ночная (заканчивается на 'n'), включаем тему night-варианта
   const isNight = typeof data.icon === "string" && /n$/.test(data.icon);
   const finalTheme = isNight ? "night" : data.theme;
   setTheme(finalTheme);
 }
 
-// ======== Валидация ========
 function validateCoords(latStr, lonStr) {
   const lat = parseFloat(latStr);
   const lon = parseFloat(lonStr);
@@ -78,21 +73,18 @@ function validateCoords(latStr, lonStr) {
   return { ok: true, lat, lon };
 }
 
-// ======== Классификация погодных условий ========
 function classifyCondition(code, desc = "") {
-  // точные коды Weatherbit
-  if (code === 800) return "clear";                 // чистое небо
-  if (code === 801 || code === 802) return "mostlyclear"; // преимущественно ясно
-  if (code >= 803 && code <= 804) return "clouds";  // облачно
+  if (code === 800) return "clear";                 
+  if (code === 801 || code === 802) return "mostlyclear"; 
+  if (code >= 803 && code <= 804) return "clouds"; 
 
-  if (code >= 200 && code <= 233) return "thunder"; // гроза
-  if (code >= 300 && code <= 302) return "drizzle"; // морось
-  if (code >= 500 && code <= 522) return "rain";    // дождь
-  if (code >= 600 && code <= 623) return "snow";    // снег
+  if (code >= 200 && code <= 233) return "thunder"; 
+  if (code >= 300 && code <= 302) return "drizzle";
+  if (code >= 500 && code <= 522) return "rain"; 
+  if (code >= 600 && code <= 623) return "snow";    
 
-  if (code >= 700 && code <= 751) return "fog";     // туман/дымка
+  if (code >= 700 && code <= 751) return "fog";     
 
-  // fallback по описанию
   const t = (desc || "").toLowerCase();
   if (t.includes("гроза") || t.includes("шторм")) return "thunder";
   if (t.includes("морось")) return "drizzle";
@@ -104,7 +96,6 @@ function classifyCondition(code, desc = "") {
   return "windy";
 }
 
-// ======== API ========
 async function fetchWeather(lat, lon) {
   const url = `${API_URL}?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&key=${encodeURIComponent(API_KEY)}&lang=ru`;
 
@@ -131,7 +122,6 @@ async function fetchWeather(lat, lon) {
   return payload;
 }
 
-// ======== Рендер кнопок городов ========
 function renderCityButtons() {
   const grid = qs("cityGrid");
   grid.innerHTML = "";
@@ -157,7 +147,6 @@ function renderCityButtons() {
   });
 }
 
-// ======== Инициализация ========
 document.addEventListener("DOMContentLoaded", () => {
   renderCityButtons();
 
